@@ -6,6 +6,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.transaction.Transactional;
 import todolist.authinformation.dto.AuthInfoDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,12 @@ public class AuthApiTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @Transactional
     public void testCreateToken() 
     throws Exception
     {
         log.info("token CreateStart");
-        String createTokenRequest = objectMapper.writeValueAsString(new AuthInfoDto(46L, "test1238", "NC", "A"));
+        String createTokenRequest = objectMapper.writeValueAsString(new AuthInfoDto(49L, "test1238", "NC", "A"));
 
         ResultActions resultActions = mockMvc.perform(post("/api/token")
                                             .contentType(MediaType.APPLICATION_JSON)
