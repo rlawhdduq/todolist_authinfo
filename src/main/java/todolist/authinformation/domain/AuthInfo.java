@@ -26,7 +26,7 @@ public class AuthInfo {
     @Column(nullable = false)
     private String token;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_id")
     private Long user_id;
     private LocalDateTime token_create_time;
     private LocalDateTime token_expire_time;
