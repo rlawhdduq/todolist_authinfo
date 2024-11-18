@@ -36,13 +36,13 @@ public class AuthApiTest {
     throws Exception
     {
         log.info("token CreateStart");
-        String createTokenRequest = objectMapper.writeValueAsString(new AuthInfoDto(49L, "test1238", "NC", "A"));
+        String createTokenRequest = objectMapper.writeValueAsString(new AuthInfoDto(49L, "test1238", "NC"));
 
         ResultActions resultActions = mockMvc.perform(post("/api/token")
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .content(createTokenRequest))
                                             .andExpect(status().isOk());
-        log.info("return json : " + resultActions.andReturn().getResponse());
+        log.info("return json : " + resultActions.andReturn().getResponse().getContentAsString());
         log.info("token CreateEnd");
     }
     

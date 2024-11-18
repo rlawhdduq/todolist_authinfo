@@ -11,5 +11,4 @@ public class AuthInfoDto {
     private Long user_id;
     private String id;
     private String user_type;
-    private String scope_of_disclosure;
 }
