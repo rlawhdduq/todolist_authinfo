@@ -3,11 +3,13 @@ package todolist.authinformation.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 import java.security.Key;
@@ -27,9 +29,20 @@ import todolist.authinformation.service.AuthInfoService;
 public class AuthInfoServiceImpl implements AuthInfoService{
 
     private static final Logger log = LoggerFactory.getLogger(AuthInfoServiceImpl.class);
-    private final SecretKey secretKey = Keys.hmacShaKeyFor("This key will be changed to enviroment variable key".getBytes());
+    @Value("${jwt.secret.lawSecretKey}")
+    private String lawSecretKey;
+    
+    private SecretKey secretKey;
+    
     @Autowired
     private final AuthInfoRepository authInfoRepository;
+
+    @PostConstruct
+    private void initSecretKey()
+    {
+        if( lawSecretKey == null || lawSecretKey.isEmpty() ) throw new IllegalArgumentException("JWT secret key is not configured.");
+        this.secretKey = Keys.hmacShaKeyFor(lawSecretKey.getBytes());
+    }
 
     @Override
     public String createToken(AuthInfoDto authInfoDto)
