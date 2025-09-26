@@ -17,6 +17,14 @@ public class AuthApi {
     private final AuthInfoService authInfoService;
     private static final Logger log = LoggerFactory.getLogger(AuthApi.class);
 
+    @PostMapping("/rest/token")
+    public String restToken(@RequestBody AuthInfoDto authInfoDto)
+    {
+        String returnToken = authInfoService.createToken(authInfoDto);
+        return returnToken;
+    }
+
+    // 이건 추후 사용할 mq방식,,, 이긴 한데 둘 다 위에꺼 써도 상관은 없을듯?
     @PostMapping("/api/token")
     public String token(@RequestBody AuthInfoDto authInfoDto)
     {
