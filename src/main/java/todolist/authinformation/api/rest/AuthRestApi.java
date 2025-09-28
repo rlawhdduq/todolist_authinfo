@@ -1,7 +1,8 @@
-package todolist.authinformation.api;
+package todolist.authinformation.api.rest;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,21 +13,14 @@ import todolist.authinformation.service.AuthInfoService;
 
 @RestController
 @RequiredArgsConstructor
-public class AuthApi {
+@RequestMapping("/rest")
+public class AuthRestApi {
 
     private final AuthInfoService authInfoService;
-    private static final Logger log = LoggerFactory.getLogger(AuthApi.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthRestApi.class);
 
     @PostMapping("/rest/token")
     public String restToken(@RequestBody AuthInfoDto authInfoDto)
-    {
-        String returnToken = authInfoService.createToken(authInfoDto);
-        return returnToken;
-    }
-
-    // 이건 추후 사용할 mq방식,,, 이긴 한데 둘 다 위에꺼 써도 상관은 없을듯?
-    @PostMapping("/api/token")
-    public String token(@RequestBody AuthInfoDto authInfoDto)
     {
         String returnToken = authInfoService.createToken(authInfoDto);
         return returnToken;

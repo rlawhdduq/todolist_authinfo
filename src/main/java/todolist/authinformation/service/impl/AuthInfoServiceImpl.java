@@ -18,7 +18,7 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import todolist.authinformation.api.AuthApi;
+import todolist.authinformation.api.mq.AuthMqApi;
 import todolist.authinformation.domain.AuthInfo;
 import todolist.authinformation.dto.AuthInfoDto;
 import todolist.authinformation.repository.AuthInfoRepository;
