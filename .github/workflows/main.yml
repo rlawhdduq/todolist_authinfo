@@ -62,5 +62,5 @@ jobs:
                   docker rmi $(docker-compose -f docker-compose-authinformation.yaml images -q) || true
 
                   docker-compose -f docker-compose-authinformation.yaml build --no-cache
-                  docker-compose -f docker-compose-authinformation.yaml up -d --force-recreate
+                  docker-compose -f docker-compose-authinformation.yaml up --force-recreate
                   echo "CD end"
