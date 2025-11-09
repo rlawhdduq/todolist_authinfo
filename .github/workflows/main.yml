@@ -44,7 +44,7 @@ jobs:
             # 이전 .jar 먼저 삭제
             ssh -o StrictHostKeyChecking=no -i private_key.pem -p 2222 ubuntukjy@${{ secrets.HOST_IP }} 'rm -f /spring/docker/compose/authinformation/jar/*.jar'
             # 새로운 .jar 복사
-            scp -o StrictHostKeyChecking=no -i private_key.pem -P 2222 &JAR_FILE ubuntukjy@${{ secrets.HOST_IP }}:/spring/docker/compose/authinformation/jar
+            scp -o StrictHostKeyChecking=no -i private_key.pem -P 2222 $JAR_FILE ubuntukjy@${{ secrets.HOST_IP }}:/spring/docker/compose/authinformation/jar
             
       - name: Set SSH ssh-action
         uses: appleboy/ssh-action@master
