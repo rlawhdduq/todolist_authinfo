@@ -57,10 +57,13 @@ jobs:
                   # 이건 ssh연결 된 상태에서 실행되는거라 추후에 dockerfile build나 이런거 할 때 여기에 명령어 작성하면 될듯 아래 명령어들은 다 쓰레기임
                   echo "CD start"
                   cd /spring/docker/compose
+                  # 빌드캐시, 이미지, 이전 컨테이너 완전 정리
+                  docker builder prune -af || true
+                  docker image prune -af || true
+                  docker container prune -f || true
+
                   docker-compose -f docker-compose-authinformation.yaml down -v
                   # 이미지 강제로 전부 삭제, true는 이미지없어서 오류나도 계속 진행하라는 의미
                   docker rmi $(docker-compose -f docker-compose-authinformation.yaml images -q) || true
-
-                  docker-compose -f docker-compose-authinformation.yaml build --no-cache
-                  docker-compose -f docker-compose-authinformation.yaml up --force-recreate
+                  docker-compose -f docker-compose-authinformation.yaml up --build --force-recreate
                   echo "CD end"
