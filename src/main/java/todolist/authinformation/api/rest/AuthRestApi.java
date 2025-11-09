@@ -19,7 +19,7 @@ public class AuthRestApi {
     private final AuthInfoService authInfoService;
     private static final Logger log = LoggerFactory.getLogger(AuthRestApi.class);
 
-    @PostMapping("/rest/token")
+    @PostMapping("/token")
     public String restToken(@RequestBody AuthInfoDto authInfoDto)
     {
         String returnToken = authInfoService.createToken(authInfoDto);
