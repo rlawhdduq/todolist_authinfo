@@ -22,8 +22,8 @@ public class AuthRestApi {
     @PostMapping("/token")
     public String restToken(@RequestBody AuthInfoDto authInfoDto)
     {
-        String returnToken = authInfoService.createToken(authInfoDto);
         log.info("Dto Check :: ");
+        String returnToken = authInfoService.createToken(authInfoDto);
         
         return returnToken;
     }
