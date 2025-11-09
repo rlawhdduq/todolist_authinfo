@@ -24,9 +24,6 @@ public class AuthRestApi {
     {
         String returnToken = authInfoService.createToken(authInfoDto);
         log.info("Dto Check :: ");
-        log.info(""+authInfoDto.getUser_id());
-        log.info(""+authInfoDto.getUser_type());
-        log.info(""+authInfoDto.getId());
         
         return returnToken;
     }
