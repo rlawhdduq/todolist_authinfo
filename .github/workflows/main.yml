@@ -32,10 +32,19 @@ jobs:
             ls -al
             echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > private_key.pem
             chmod 600 private_key.pem
+            # build/libs에서 실행 가능한 하나의 .jar 파일 이름만 찾기
+            # (-plain.jar 같은 파일을 제외합니다)
+            JAR_FILE=$(find $GITHUB_WORKSPACE/build/libs -name "*.jar" ! -name "*-plain.jar" | head -n 1)
+            
+            if [ -z "$JAR_FILE" ]; then
+              echo "ERROR: No executable .jar file found."
+              exit 1
+            fi
+            echo "Found .jar file: $JAR_FILE"
             # 이전 .jar 먼저 삭제
             ssh -o StrictHostKeyChecking=no -i private_key.pem -p 2222 ubuntukjy@${{ secrets.HOST_IP }} 'rm -f /spring/docker/compose/authinformation/jar/*.jar'
             # 새로운 .jar 복사
-            scp -o StrictHostKeyChecking=no -i private_key.pem -P 2222 $GITHUB_WORKSPACE/build/libs/*.jar ubuntukjy@${{ secrets.HOST_IP }}:/spring/docker/compose/authinformation/jar
+            scp -o StrictHostKeyChecking=no -i private_key.pem -P 2222 &JAR_FILE ubuntukjy@${{ secrets.HOST_IP }}:/spring/docker/compose/authinformation/jar
             
       - name: Set SSH ssh-action
         uses: appleboy/ssh-action@master
