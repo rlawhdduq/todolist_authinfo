@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class AuthInfoDto {
-    private Long user_id;
+    private Long userId;
     private String id;
-    private String user_type;
+    private String userType;
 }

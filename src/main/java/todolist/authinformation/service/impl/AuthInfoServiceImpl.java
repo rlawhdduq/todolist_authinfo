@@ -47,15 +47,15 @@ public class AuthInfoServiceImpl implements AuthInfoService{
     @Override
     public String createToken(AuthInfoDto authInfoDto)
     {
-        tokenVerification(authInfoDto.getUser_id());
+        tokenVerification(authInfoDto.getUserId());
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime expireTime = nowTime.plusHours(1);
 
         // 토큰 생성부
         String token =  Jwts.builder()
-                    .subject(authInfoDto.getUser_id().toString())
+                    .subject(authInfoDto.getUserId().toString())
                     .claim("id", authInfoDto.getId())
-                    .claim("user_type", authInfoDto.getUser_type())
+                    .claim("user_type", authInfoDto.getUserType())
                     .issuedAt(java.sql.Timestamp.valueOf(nowTime))
                     .expiration(java.sql.Timestamp.valueOf(expireTime))
                     .signWith(secretKey)
@@ -64,7 +64,7 @@ public class AuthInfoServiceImpl implements AuthInfoService{
         // 토큰 저장부
         AuthInfo saveInfo = AuthInfo.builder()
                                     .token(token)
-                                    .user_id(authInfoDto.getUser_id())
+                                    .user_id(authInfoDto.getUserId())
                                     .token_create_time(nowTime)
                                     .token_expire_time(expireTime)
                                     .build();
