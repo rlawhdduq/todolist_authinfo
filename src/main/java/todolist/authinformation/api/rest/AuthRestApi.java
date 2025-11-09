@@ -23,7 +23,11 @@ public class AuthRestApi {
     public String restToken(@RequestBody AuthInfoDto authInfoDto)
     {
         String returnToken = authInfoService.createToken(authInfoDto);
-        log.info(authInfoDto.toString());
+        log.info("Dto Check :: ");
+        log.info(""+authInfoDto.getUser_id());
+        log.info(""+authInfoDto.getUser_type());
+        log.info(""+authInfoDto.getId());
+        
         return returnToken;
     }
 }
